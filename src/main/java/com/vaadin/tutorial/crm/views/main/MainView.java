@@ -5,6 +5,7 @@ import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.avatar.Avatar;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.H1;
@@ -17,6 +18,7 @@ import com.vaadin.flow.component.tabs.Tabs;
 import com.vaadin.flow.component.tabs.TabsVariant;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.tutorial.crm.views.about.AboutView;
 import com.vaadin.tutorial.crm.views.dashboard.DashboardView;
 import com.vaadin.tutorial.crm.views.helloworld.HelloWorldView;
@@ -41,6 +43,10 @@ public class MainView extends AppLayout {
         addToDrawer(createDrawerContent(menu));
     }
 
+    private void cerrarSesion(){
+        VaadinSession.getCurrent().getSession().invalidate();
+    }
+
     private Component createHeaderContent() {
         HorizontalLayout layout = new HorizontalLayout();
         layout.setId("header");
@@ -57,7 +63,7 @@ public class MainView extends AppLayout {
 
     private Component createDrawerContent(Tabs menu) {
         VerticalLayout layout = new VerticalLayout();
-        layout.setSizeFull();
+        layout.setHeightFull();
         layout.setPadding(false);
         layout.setSpacing(false);
         layout.getThemeList().set("spacing-s", true);
@@ -68,8 +74,19 @@ public class MainView extends AppLayout {
         logoLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
         logoLayout.add(new Image("images/logo.png", "Vaadin CRM logo"));
         logoLayout.add(new H1("Vaadin CRM"));
-        layout.add(logoLayout, menu);
+        layout.add(logoLayout, menu,createLogout());
+
         return layout;
+    }
+
+    private Component createLogout(){
+        Button logout = new Button(" Cerrar Sesion");
+        logout.addClickListener(buttonClickEvent -> {
+            VaadinSession.getCurrent().getSession().invalidate();
+        });
+        logout.getElement().getStyle().set("color","red");
+        logout.setId("logout");
+        return logout;
     }
 
     private Tabs createMenu() {

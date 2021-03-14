@@ -1,11 +1,15 @@
 package com.vaadin.tutorial.crm.views.about;
 
-import com.vaadin.flow.component.Text;
+
 import com.vaadin.flow.component.dependency.CssImport;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.Div;
+
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.tutorial.crm.views.main.MainView;
+
 
 @CssImport("./views/about/about-view.css")
 @Route(value = "about", layout = MainView.class)
@@ -13,8 +17,7 @@ import com.vaadin.tutorial.crm.views.main.MainView;
 public class AboutView extends Div {
 
     public AboutView() {
-        addClassName("about-view");
-        add(new Text("Content placeholder for you next "));
+        VaadinSession.getCurrent().getSession().invalidate();
     }
 
 }
