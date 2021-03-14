@@ -67,13 +67,14 @@ public class MainView extends AppLayout {
         layout.setPadding(false);
         layout.setSpacing(false);
         layout.getThemeList().set("spacing-s", true);
+        layout.expand(menu);
         layout.setAlignItems(FlexComponent.Alignment.STRETCH);
         HorizontalLayout logoLayout = new HorizontalLayout();
         logoLayout.setId("logo");
         logoLayout.setAlignItems(FlexComponent.Alignment.CENTER);
         logoLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
-        logoLayout.add(new Image("images/logo.png", "Vaadin CRM logo"));
-        logoLayout.add(new H1("Vaadin CRM"));
+        logoLayout.add(new Image("images/logo.png", "INC logo"));
+        logoLayout.add(new H1("INC"));
         layout.add(logoLayout, menu,createLogout());
 
         return layout;
