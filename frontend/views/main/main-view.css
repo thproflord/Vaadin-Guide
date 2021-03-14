@@ -1,0 +1,98 @@
+#header {
+  height: var(--lumo-size-xl);
+  box-shadow: var(--lumo-box-shadow-s);
+}
+#header vaadin-avatar {
+  margin-left: auto;
+  margin-right: var(--lumo-space-m);
+}
+vaadin-app-layout[dir='rtl'] #header vaadin-avatar {
+  margin-left: var(--lumo-space-m);
+  margin-right: auto;
+}
+#header h1 {
+  font-size: var(--lumo-font-size-l);
+  margin: 0;
+}
+#logo {
+  box-sizing: border-box;
+  box-shadow: inset 0 -1px var(--lumo-contrast-10pct);
+  padding: var(--lumo-space-s) var(--lumo-space-m);
+}
+#logo img {
+  height: calc(var(--lumo-size-l) * 1.5);
+}
+#logo h1 {
+  font-size: var(--lumo-font-size-xl);
+  font-weight: 600;
+  margin: 0 var(--lumo-space-s);
+}
+
+vaadin-tab {
+  font-size: var(--lumo-font-size-s);
+  height: var(--lumo-size-l);
+  font-weight: 600;
+  color: var(--lumo-body-text-color);
+}
+
+vaadin-tab:hover {
+  background-color: var(--lumo-contrast-5pct);
+}
+
+vaadin-tab[selected] {
+  background-color: var(--lumo-primary-color-10pct);
+  color: var(--lumo-primary-text-color);
+}
+
+/* Example: CSS class name to center align the content . */
+.centered-content {
+  margin: 0 auto;
+  max-width: 250px;
+}
+
+/* List view */
+.list-view .content {
+  display: flex;
+}
+
+.list-view .contact-grid {
+  flex: 2;
+}
+
+.list-view .contact-form {
+  flex: 1;
+  padding: var(--lumo-space-m);
+}
+
+@media all and (max-width: 1100px) {
+
+  .list-view.editing .toolbar,
+  .list-view.editing .contact-grid {
+    display: none;
+  }
+
+}
+
+/* Main layout */
+a[highlight] {
+  font-weight: bold;
+  text-decoration: underline;
+}
+.header {
+  padding: 0 var(--lumo-space-m);
+}
+.header h1.logo {
+  font-size: 1em;
+  margin: var(--lumo-space-m);
+}
+
+/* Dashboard view */
+.dashboard-view .contact-stats {
+  font-size: 4em;
+  margin: 1em 0;
+}
+
+.dashboard-view #chart {
+  display: flex;
+  justify-content: center;
+}
