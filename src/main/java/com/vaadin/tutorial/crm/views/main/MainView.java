@@ -20,9 +20,9 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.tutorial.crm.views.about.AboutView;
-import com.vaadin.tutorial.crm.views.dashboard.DashboardView;
-import com.vaadin.tutorial.crm.views.helloworld.HelloWorldView;
-import com.vaadin.tutorial.crm.views.list.ListView;
+import com.vaadin.tutorial.crm.views.embarcaciones.DashboardView;
+import com.vaadin.tutorial.crm.views.projects.Projects;
+import com.vaadin.tutorial.crm.views.list.Personal;
 
 import java.util.Optional;
 
@@ -73,8 +73,7 @@ public class MainView extends AppLayout {
         logoLayout.setId("logo");
         logoLayout.setAlignItems(FlexComponent.Alignment.CENTER);
         logoLayout.setJustifyContentMode(FlexComponent.JustifyContentMode.CENTER);
-        logoLayout.add(new Image("images/logo.png", "INC logo"));
-        logoLayout.add(new H1("INC"));
+        logoLayout.add(new Image("images/inc.png", "INC logo"));
         layout.add(logoLayout, menu,createLogout());
 
         return layout;
@@ -101,9 +100,9 @@ public class MainView extends AppLayout {
 
     private Component[] createMenuItems() {
         return new Tab[]{
-                createTab("Hello World", HelloWorldView.class),
-                createTab("Contacts", ListView.class),
-                createTab("Dashboard", DashboardView.class),
+                createTab("Projectos", Projects.class),
+                createTab("Personal", Personal.class),
+                createTab("Embarcaciones", DashboardView.class),
                 createTab("About", AboutView.class),
 
         };

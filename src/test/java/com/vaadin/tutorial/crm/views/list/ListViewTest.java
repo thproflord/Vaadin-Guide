@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class ListViewTest {
 
     @Autowired
-    private ListView listView;
+    private Personal listView;
 
     @Test
     public void formShownWhenContactSelected() {

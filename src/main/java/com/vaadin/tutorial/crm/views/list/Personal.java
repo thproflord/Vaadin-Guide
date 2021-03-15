@@ -18,11 +18,11 @@ import com.vaadin.tutorial.crm.views.main.MainView;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-@Route(value = "contacts", layout = MainView.class)
-@PageTitle("Contacts")
+@Route(value = "personal", layout = MainView.class)
+@PageTitle("Personal")
 @Scope("prototype")
 @Component
-public class ListView extends VerticalLayout {
+public class Personal extends VerticalLayout {
 
     //Components
     Grid<Contact> grid = new Grid<>(Contact.class);
@@ -34,7 +34,7 @@ public class ListView extends VerticalLayout {
 
     ContactForm contactForm;
 
-    public ListView(ContactService contactService, CompanyService companyService) {
+    public Personal(ContactService contactService, CompanyService companyService) {
         this.contactService = contactService;
         configureGrid();
         getToolbar();

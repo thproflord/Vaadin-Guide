@@ -1,4 +1,4 @@
-package com.vaadin.tutorial.crm.views.dashboard;
+package com.vaadin.tutorial.crm.views.embarcaciones;
 
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.charts.Chart;
@@ -15,8 +15,8 @@ import com.vaadin.tutorial.crm.views.main.MainView;
 
 import java.util.Map;
 
-@Route(value = "dashboard", layout = MainView.class)
-@PageTitle("Dashboard | Vaadin CRM")
+@Route(value = "embarcaciones", layout = MainView.class)
+@PageTitle("Embarcaciones")
 public class DashboardView extends VerticalLayout {
 
     private ContactService contactService;
