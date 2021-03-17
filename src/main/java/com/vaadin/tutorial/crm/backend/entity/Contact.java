@@ -9,7 +9,17 @@ import javax.validation.constraints.NotNull;
 public class Contact extends AbstractEntity implements Cloneable {
 
     public enum Status {
-      ImportedLead, NotContacted, Contacted, Customer, ClosedLost
+      Interno, Externo, Contratado
+    }
+    public enum tipo {
+        Obrero,Administrativo
+    }
+    public enum cargo{
+        maqunista,batimetrista, operador,otro
+    }
+
+    public enum condicion{
+        Activo, Reposo, Baja
     }
 
     @NotNull
@@ -32,6 +42,16 @@ public class Contact extends AbstractEntity implements Cloneable {
     @NotNull
     @NotEmpty
     private String email = "";
+
+    @Enumerated
+    private Contact.tipo tipo;
+
+    @Enumerated
+    private Contact.cargo cargo;
+
+    @Enumerated
+    private Contact.condicion condicion;
+
 
     public String getEmail() {
       return email;
@@ -71,6 +91,30 @@ public class Contact extends AbstractEntity implements Cloneable {
 
     public Company getCompany() {
       return company;
+    }
+
+    public Contact.tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Contact.tipo tipo) {
+        this.tipo = tipo;
+    }
+
+    public Contact.cargo getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(Contact.cargo cargo) {
+        this.cargo = cargo;
+    }
+
+    public Contact.condicion getCondicion() {
+        return condicion;
+    }
+
+    public void setCondicion(Contact.condicion condicion) {
+        this.condicion = condicion;
     }
 
     @Override

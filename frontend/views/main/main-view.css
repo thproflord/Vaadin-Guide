@@ -60,11 +60,11 @@ vaadin-tab[selected] {
 }
 
 .list-view .contact-grid {
-  flex: 2;
+  flex: 4;
 }
 
 .list-view .contact-form {
-  flex: 1;
+  flex: 3;
   padding: var(--lumo-space-m);
 }
 

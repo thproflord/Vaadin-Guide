@@ -1,8 +1,12 @@
 package com.vaadin.tutorial.crm.views.list;
 
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.dialog.Dialog;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.grid.GridMultiSelectionModel;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -26,7 +30,8 @@ public class Personal extends VerticalLayout {
 
     //Components
     Grid<Contact> grid = new Grid<>(Contact.class);
-    TextField filter = new TextField("Filter by name");
+    TextField filter = new TextField("Filtrar por nombre");
+    Dialog dialog = new Dialog();
 
     // Services
     private ContactService contactService;
@@ -45,22 +50,34 @@ public class Personal extends VerticalLayout {
         contactForm.addListener(ContactForm.DeleteEvent.class, this::deleteContact);
         contactForm.addListener(ContactForm.CloseEvent.class, e -> closeEditor());
 
+        createDialogForm();
         addClassName("list-view");
         setSizeFull();
 
         Div content = new Div();
-        content.add(grid, contactForm);
+        content.add(grid);
         content.addClassName("content");
         content.setSizeFull();
 
-        add(getToolbar(), content );
+        Button addContactButton = new Button("New Contact");
+        addContactButton.addClickListener(click -> addContact());
+
+        add(getToolbar(), content ,addContactButton);
 
         updateList();
     }
 
+    private void createDialogForm(){
+        dialog.add(contactForm);
+        dialog.setWidth("500px");
+        dialog.setHeight("auto");
+        add(dialog);
+
+    }
+
     private void configureGrid() {
         grid.removeColumnByKey("company");
-        grid.setColumns("firstName", "lastName", "email", "status");
+        grid.setColumns("firstName", "lastName", "email", "status","cargo","tipo","condicion");
         grid.addColumn(contact -> {
             Company company = contact.getCompany();
             return  company == null ? "---" : company.getName();
@@ -69,7 +86,7 @@ public class Personal extends VerticalLayout {
         grid.setSizeFull();
         grid.addClassName("contact-grid");
         grid.getColumns().forEach(contactColumn -> contactColumn.setAutoWidth(true));
-
+        grid.setColumnReorderingAllowed(true);
         grid.asSingleSelect().addValueChangeListener(event -> editContact(event.getValue()));
 
     }
@@ -85,10 +102,8 @@ public class Personal extends VerticalLayout {
         filter.setValueChangeMode(ValueChangeMode.LAZY);
         filter.addValueChangeListener(e -> updateList());
 
-        Button addContactButton = new Button("New Contact");
-        addContactButton.addClickListener(click -> addContact());
 
-        HorizontalLayout toolbar = new HorizontalLayout(filter, addContactButton);
+        HorizontalLayout toolbar = new HorizontalLayout(filter);
 
         toolbar.addClassName("toolbar");
 
@@ -97,6 +112,7 @@ public class Personal extends VerticalLayout {
 
     private void updateList() {
         grid.setItems(contactService.findAll(filter.getValue()));
+
     }
 
     private void editContact(Contact contact) {
@@ -104,25 +120,30 @@ public class Personal extends VerticalLayout {
             closeEditor();
         } else {
             contactForm.setContact(contact);
-            contactForm.setVisible(true);
-            contactForm.addClassName("editing");
+            dialog.open();
         }
     }
 
     private void closeEditor() {
+        grid.recalculateColumnWidths();
         contactForm.setContact(null);
-        contactForm.setVisible(false);
-        removeClassName("editing");
+        dialog.close();
     }
 
     private void saveContact(ContactForm.SaveEvent event) {
         contactService.save(event.getContact());
+        Notification success = new Notification("Creado Correctamente",3000);
+        success.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+        success.open();
         updateList();
         closeEditor();
     }
 
     private void deleteContact(ContactForm.DeleteEvent event) {
         contactService.delete(event.getContact());
+        Notification deleted = new Notification("Borrado",3000);
+        deleted.addThemeVariants(NotificationVariant.LUMO_ERROR);
+        deleted.open();
         updateList();
         closeEditor();
     }

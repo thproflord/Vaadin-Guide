@@ -25,8 +25,12 @@ public class ContactForm extends FormLayout {
     TextField firstName = new TextField();
     TextField lastName = new TextField();
     EmailField email = new EmailField();
-    ComboBox<Company> company = new ComboBox<>("Company");
-    ComboBox<Contact.Status> status = new ComboBox<>("Status");
+
+    ComboBox<Company> company = new ComboBox<>("Compañia");
+    ComboBox<Contact.Status> status = new ComboBox<>("Estado");
+    ComboBox<Contact.cargo> cargo = new ComboBox<>("Cargo");
+    ComboBox<Contact.condicion> condicion = new ComboBox<>("Condicion");
+    ComboBox<Contact.tipo> tipo = new ComboBox<>("Tipo");
 
     Button save = new Button("Save");
     Button delete = new Button("Delete");
@@ -36,15 +40,23 @@ public class ContactForm extends FormLayout {
 
     Contact contact;
 
+
     public ContactForm(List<Company> companies) {
         addClassName("contact-form");
-
-        company.setItems(companies);
-        company.setItemLabelGenerator(Company::getName);
+        firstName.setPlaceholder("Nombres");
+        lastName.setPlaceholder("Apellidos");
+        email.setPlaceholder("Correo");
+        if(companies != null){
+            company.setItems(companies);
+            company.setItemLabelGenerator(Company::getName);
+        }
         status.setItems(Contact.Status.values());
+        cargo.setItems(Contact.cargo.values());
+        condicion.setItems(Contact.condicion.values());
+        tipo.setItems(Contact.tipo.values());
 
         bind.bindInstanceFields(this);
-        add(firstName, lastName, email, company, status, createButtonsLayout());
+        add(firstName, lastName, email, company, status,cargo,condicion,tipo, createButtonsLayout());
     }
 
     private HorizontalLayout createButtonsLayout() {

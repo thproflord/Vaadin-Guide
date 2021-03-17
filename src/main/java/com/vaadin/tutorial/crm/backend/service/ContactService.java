@@ -64,32 +64,7 @@ public class ContactService {
       // Si company esta vacio
       if (companyRepository.count() == 0) {
         companyRepository.saveAll(
-                Stream.of("Path-Way", "E-Tech", "Holiday-Tech").map(Company::new).collect(Collectors.toSet()));
-      }
-
-      // Si no hay contactos
-      if (contactRepository.count() == 0) {
-        Random r = new Random();
-        List<Company> company = companyRepository.findAll();
-        contactRepository.saveAll(Stream.of("Gabrielle Patel", "Brian Robinson", "Eduardo Haugen",
-                "Koen Johansen", "Alejandro Macdonald", "Angel Karlsson", "Yahir Gustavsson", "Haiden Svensson",
-                "Emily Stewart", "Corinne Davis", "Ryann Davis", "Yurem Jackson",
-                "Kelly Gustavsson",
-                "Eileen Walker", "Katelyn Martin", "Israel Carlsson", "Quinn Hansson", "Makena Smith",
-                "Danielle Watson", "Leland Harris", "Gunner Karlsen", "Jamar Olsson",
-                "Ann Andersson", "Remington Andersson", "Rene Carlsson", "Elvis Olsen", "Solomon Olsen",
-                "Jaydan Jackson", "Bernard Nilsen").map(contactName -> {
-                    String[] split = contactName.split(" ");
-                    Contact contact = new Contact();
-                    contact.setFirstName(split[0]);
-                    contact.setLastName(split[1]);
-                    contact.setStatus(Contact.Status.values()[r.nextInt(Contact.Status.values().length)]);
-                    contact.setCompany(company.get(r.nextInt(company.size())));
-                    contact.setEmail((contact.getFirstName() + contact.getLastName() + "@" + contact.getCompany().getName().replaceAll("[\\s-]", "") + ".com").toLowerCase());
-
-                    return contact;
-                }
-            ).collect(Collectors.toList()));
+                Stream.of("INC", "Hidrofalcon", "INEA").map(Company::new).collect(Collectors.toSet()));
       }
 
 

@@ -27,7 +27,7 @@ public class ContactFormTest {
         marcUsher.setFirstName("Marc");
         marcUsher.setLastName("Usher");
         marcUsher.setEmail("marc@usher.com");
-        marcUsher.setStatus(Contact.Status.NotContacted);
+        marcUsher.setStatus(Contact.Status.Contratado);
         marcUsher.setCompany(company2);
     }
 
@@ -39,7 +39,7 @@ public class ContactFormTest {
         Assert.assertEquals("Usher", form.lastName.getValue());
         Assert.assertEquals("marc@usher.com", form.email.getValue());
         Assert.assertEquals(company2, form.company.getValue());
-        Assert.assertEquals(Contact.Status.NotContacted, form.status.getValue());
+        Assert.assertEquals(Contact.Status.Contratado, form.status.getValue());
     }
 
     @Test
@@ -52,7 +52,7 @@ public class ContactFormTest {
         form.lastName.setValue("Doe");
         form.company.setValue(company1);
         form.email.setValue("john@doe.com");
-        form.status.setValue(Contact.Status.Customer);
+        form.status.setValue(Contact.Status.Contratado);
 
         AtomicReference<Contact> savedContactRef = new AtomicReference<>(null);
         form.addListener(ContactForm.SaveEvent.class, e -> {
@@ -64,7 +64,7 @@ public class ContactFormTest {
         Assert.assertEquals("Doe", savedContact.getLastName());
         Assert.assertEquals("john@doe.com", savedContact.getEmail());
         Assert.assertEquals(company1, savedContact.getCompany());
-        Assert.assertEquals(Contact.Status.Customer, savedContact.getStatus());
+        Assert.assertEquals(Contact.Status.Contratado, savedContact.getStatus());
 
     }
 
